@@ -22,9 +22,9 @@ class Booking(Base):
     __tablename__ = "bookings"
 
     id = Column(String(50), primary_key=True, index=True)
-    resource_id = Column(String(50), ForeignKey("resources.id"), nullable=False)
-    borrower_id = Column(String(50), ForeignKey("users.id"), nullable=False)
-    owner_id = Column(String(50), ForeignKey("users.id"), nullable=False)
+    resource_id = Column(String(50), nullable=False)
+    borrower_id = Column(String(50), nullable=False)
+    owner_id = Column(String(50), nullable=False)
     start_date = Column(String(20), nullable=False)
     end_date = Column(String(20), nullable=False)
     total_amount = Column(Float, nullable=False)

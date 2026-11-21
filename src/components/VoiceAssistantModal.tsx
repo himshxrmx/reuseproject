@@ -54,7 +54,7 @@ export function VoiceAssistantModal() {
   const [liveInterim, setLiveInterim] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState<"Hinglish" | "Hindi" | "English">("Hinglish");
   const [conversationInstance, setConversationInstance] = useState<ActiveConversation | null>(null);
-  const [voiceEngine, setVoiceEngine] = useState<"elevenlabs" | "browser">("browser");
+  const [voiceEngine, setVoiceEngine] = useState<"elevenlabs" | "browser">("elevenlabs");
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [shouldAutoStart, setShouldAutoStart] = useState(false);

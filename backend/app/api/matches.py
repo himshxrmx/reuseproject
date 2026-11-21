@@ -69,11 +69,12 @@ async def get_ai_matches(
     keywords = [k for k in raw_tokens if k not in STOP_WORDS]
 
     # Detect category intent from keywords
-    detected_category: Optional[str] = None
-    for cat, synonyms in CATEGORY_SYNONYMS.items():
-        if any(syn in p_lower for syn in synonyms):
-            detected_category = cat
-            break
+    # Match whole words only (plus simple plurals), so "campus" no longer matches "camp"
+    prompt_words = set(re.findall(r"[a-z0-9]+", p_lower))
+    detected_categories = {
+        cat for cat, synonyms in CATEGORY_SYNONYMS.items()
+        if any(syn in prompt_words or f"{syn}s" in prompt_words for syn in synonyms)
+    }
 
     # 3. Retrieve resources from PostgreSQL DB
     candidate_items = []
@@ -132,9 +133,9 @@ async def get_ai_matches(
                 matched_words.append(kw)
 
         # Category alignment
-        if detected_category:
-            if detected_category in cat_lower or cat_lower in detected_category:
-                score += 30
+        category_match = cat_lower in detected_categories
+        if category_match:
+            score += 30
 
         # Budget fit
         is_within_budget = daily_rate <= budget_limit
@@ -150,7 +151,7 @@ async def get_ai_matches(
         trust_score = 96
 
         # Normalization
-        if matched_words or (detected_category and (detected_category in cat_lower or cat_lower in detected_category)):
+        if matched_words or category_match:
             final_match_score = min(99, max(65, 50 + int(score * 0.45)))
             rationale = (
                 f"Matched requirements for '{', '.join(matched_words) if matched_words else prompt[:25]}' "

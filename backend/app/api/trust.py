@@ -5,7 +5,7 @@ Exposes reputation confidence metrics, sensitivity stress tests, and verified re
 import time
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status, Header
-from sqlalchemy import select, and_
+from sqlalchemy import select, and_, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db

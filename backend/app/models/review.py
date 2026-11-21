@@ -10,9 +10,9 @@ class Review(Base):
     __tablename__ = "reviews"
 
     id = Column(String(50), primary_key=True, index=True)
-    booking_id = Column(String(50), ForeignKey("bookings.id"), nullable=False, index=True)
-    reviewer_id = Column(String(50), ForeignKey("users.id"), nullable=False, index=True)
-    reviewee_id = Column(String(50), ForeignKey("users.id"), nullable=False, index=True)
+    booking_id = Column(String(50), nullable=False, index=True)
+    reviewer_id = Column(String(50), nullable=False, index=True)
+    reviewee_id = Column(String(50), nullable=False, index=True)
     rating = Column(Float, nullable=False)  # 1.0 to 5.0
     condition_rating = Column(Float, default=5.0)
     communication_rating = Column(Float, default=5.0)

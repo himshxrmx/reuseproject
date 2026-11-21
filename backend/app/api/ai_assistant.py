@@ -2,6 +2,7 @@
 RE:USE Platform Groq AI Assistant & Campus Recommendation Engine
 Powered by Groq Cloud Llama-3.3-70b-versatile Ultra-Fast LPU Inference
 """
+import os
 import urllib.request
 import json
 import logging
@@ -28,7 +29,7 @@ class AIChatRequest(BaseModel):
 
 
 class AIChatResponse(BaseModel):
-    success: boolean = True
+    success: bool = True
     reply: str
     recommended_resources: Optional[List[dict]] = []
     model_used: str = "llama-3.3-70b-versatile"
