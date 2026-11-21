@@ -55,7 +55,8 @@ services:
     runtime: node
     plan: free
     region: singapore
-    buildCommand: npm ci && npm run build
+    # npm install (not npm ci): the lockfile was made with npm 11 and npm 10 on Render rejects it
+    buildCommand: npm install --no-audit --no-fund && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
