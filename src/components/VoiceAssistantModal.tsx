@@ -1128,10 +1128,11 @@ export function VoiceAssistantModal() {
   };
 
   // Auto-start listening immediately on modal open for instant zero-click voice response
+  // (uses the selected engine: ElevenLabs by default, browser voice as fallback)
   useEffect(() => {
     if (isOpen && shouldAutoStart) {
       setShouldAutoStart(false);
-      startBrowserVoiceSession();
+      startVoiceSession();
     }
   }, [isOpen, shouldAutoStart]);
 
